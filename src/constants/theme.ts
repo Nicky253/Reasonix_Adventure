@@ -1,40 +1,42 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
 import '@/global.css';
-
 import { Platform } from 'react-native';
 
 export const Colors = {
   light: {
-    text: '#000000',
-    background: '#ffffff',
-    backgroundElement: '#F0F0F3',
-    backgroundSelected: '#E0E1E6',
-    textSecondary: '#60646C',
+    text: '#ffffff', // Forcing dark mode elements even in light mode for unified gaming experience
+    background: '#0f051d',
+    backgroundElement: '#1a0b2e',
+    backgroundSelected: '#2c124d',
+    textSecondary: '#a594cf',
+    primary: '#6b3fa0',
+    accent: '#ffd700',
+    cyan: '#00f5ff',
+    magenta: '#ff007f',
+    green: '#4CAF50',
+    error: '#f44336',
   },
   dark: {
     text: '#ffffff',
-    background: '#000000',
-    backgroundElement: '#212225',
-    backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
+    background: '#0f051d', // Deep space purple
+    backgroundElement: '#1a0b2e', // Midnight plum
+    backgroundSelected: '#2c124d', // Active item background
+    textSecondary: '#a594cf', // Lavender purple
+    primary: '#8a4fcf',
+    accent: '#ffd700', // Royal Gold
+    cyan: '#00f5ff', // Cosmic Cyan
+    magenta: '#ff007f', // Cyber Magenta
+    green: '#4CAF50',
+    error: '#f44336',
   },
 } as const;
 
-export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
+export type ThemeColor = keyof typeof Colors.dark;
 
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
     sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
     serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
     rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
     mono: 'ui-monospace',
   },
   default: {
@@ -63,3 +65,4 @@ export const Spacing = {
 
 export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
 export const MaxContentWidth = 800;
+export type ColorsType = typeof Colors.dark;
