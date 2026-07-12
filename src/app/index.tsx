@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useUser } from './_layout';
 import { Colors, Spacing, MaxContentWidth } from '../constants/theme';
 import { aiService } from '../services/aiService';
