@@ -22,6 +22,7 @@ import {
 } from '../data/gameData';
 import { aiService } from '../services/aiService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { database } from '../config/firebase';
 
 export default function GameplayScreen() {
   const router = useRouter();
@@ -128,10 +129,14 @@ export default function GameplayScreen() {
         const levelQuestions: Question[] = [];
         const categories = world.categories;
 
+        // Try fetching questions from Firestore database backend first
+        const dbQuestions = await database.getQuestions();
+        const activeQuestionBank = dbQuestions && dbQuestions.length > 0 ? dbQuestions : QUESTION_BANK;
+
         for (let i = 0; i < level.questionsCount; i++) {
           const cat = categories[i % categories.length];
           // Filter matching category
-          const matching = QUESTION_BANK.filter(q => q.category === cat);
+          const matching = activeQuestionBank.filter(q => q.category === cat);
           // Get adaptive question based on user profile
           const q = aiService.getAdaptiveQuestion(profile!, cat, matching);
           

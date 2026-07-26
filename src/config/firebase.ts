@@ -22,6 +22,7 @@ import {
   limit 
 } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Question } from '../data/gameData';
 
 // Replace with user's Firebase config or load from process.env if available
 const firebaseConfig = {
@@ -381,5 +382,20 @@ export const database = {
     const list: any[] = [];
     snap.forEach(d => list.push(d.data()));
     return list;
+  },
+  getQuestions: async (): Promise<Question[] | null> => {
+    if (isMockMode) {
+      return null;
+    }
+    try {
+      const qCol = collection(dbInstance, 'questions');
+      const snap = await getDocs(qCol);
+      const list: Question[] = [];
+      snap.forEach(d => list.push({ id: d.id, ...d.data() } as Question));
+      return list.length > 0 ? list : null;
+    } catch (e) {
+      console.warn("Failed to fetch questions from Firestore, falling back to local bank", e);
+      return null;
+    }
   }
 };
