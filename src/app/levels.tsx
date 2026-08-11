@@ -58,10 +58,7 @@ export default function LevelsScreen() {
   const handleLevelPress = (level: Level) => {
     if (!isLevelUnlocked(level)) return;
     
-    router.push({
-      pathname: '/gameplay',
-      params: { worldId, levelId: level.id.toString(), mode: 'normal' }
-    });
+    router.push(`/gameplay?worldId=${worldId}&levelId=${level.id}&mode=normal`);
   };
 
   if (loading || !profile || loadingStars) {

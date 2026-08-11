@@ -42,12 +42,13 @@ export default function MapScreen() {
   };
 
   const handleWorldPress = (worldId: string) => {
-    if (!isWorldUnlocked(worldId)) return;
+    console.log("Entering world:", worldId);
+    if (!isWorldUnlocked(worldId)) {
+      console.warn("World locked:", worldId);
+      return;
+    }
     
-    router.push({
-      pathname: '/levels',
-      params: { worldId }
-    });
+    router.push(`/levels?worldId=${worldId}`);
   };
 
   // Map representation of icons

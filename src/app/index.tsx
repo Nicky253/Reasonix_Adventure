@@ -53,11 +53,7 @@ export default function HomeScreen() {
   const handleStartDailyChallenge = () => {
     if (dailyCompleted) return;
     
-    // Navigate to gameplay with special daily parameters
-    router.push({
-      pathname: '/gameplay',
-      params: { mode: 'daily' }
-    });
+    router.push('/gameplay?mode=daily');
   };
 
   const handleLogout = async () => {
