@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useUser } from './_layout';
-import { Colors, Spacing, MaxContentWidth } from '../constants/theme';
-import { GAME_WORLDS, GAME_WORLDS as WORLDS } from '../data/gameData';
+import { useUser } from '../_layout';
+import { Colors, Spacing, MaxContentWidth } from '../../constants/theme';
+import { GAME_WORLDS, GAME_WORLDS as WORLDS } from '../../data/gameData';
 
 export default function MapScreen() {
   const router = useRouter();
@@ -27,7 +27,6 @@ export default function MapScreen() {
 
   // Helper to check if a world is unlocked
   const isWorldUnlocked = (worldId: string) => {
-    // Determine required XP based on world index
     const worldIndex = WORLDS.findIndex(w => w.id === worldId);
     if (worldIndex === 0) return true; // first world is always unlocked
     
@@ -48,10 +47,12 @@ export default function MapScreen() {
       return;
     }
     
-    router.push(`/levels?worldId=${worldId}`);
+    router.push({
+      pathname: '/levels',
+      params: { worldId }
+    });
   };
 
-  // Map representation of icons
   const emojiMap: { [key: string]: string } = {
     'logic-forest': '🌲',
     'puzzle-temple': '🏛️',
@@ -86,7 +87,7 @@ export default function MapScreen() {
                 ]}
                 onPress={() => handleWorldPress(world.id)}
                 disabled={!unlocked}
-                activeOpacity={0.8}
+                activeOpacity={0.7}
               >
                 {/* World Emoji Icon */}
                 <View style={[
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: Spacing.three,
-    paddingBottom: 110, // Buffer for tabbar
+    paddingBottom: 110,
   },
   loadingContainer: {
     flex: 1,

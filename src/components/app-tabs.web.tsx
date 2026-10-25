@@ -8,7 +8,6 @@ import {
 } from 'expo-router/ui';
 import { Pressable, useColorScheme, View, StyleSheet } from 'react-native';
 import { ThemedText } from './themed-text';
-import { ThemedView } from './themed-view';
 import { Colors, MaxContentWidth, Spacing } from '@/constants/theme';
 
 export default function AppTabs() {
@@ -17,16 +16,16 @@ export default function AppTabs() {
       <TabSlot style={{ height: '100%' }} />
       <TabList asChild>
         <CustomTabList>
-          <TabTrigger name="index" href="/" asChild>
+          <TabTrigger name="index" href="/(tabs)" asChild>
             <TabButton>Home</TabButton>
           </TabTrigger>
-          <TabTrigger name="map" href="/map" asChild>
+          <TabTrigger name="map" href="/(tabs)/map" asChild>
             <TabButton>World Map</TabButton>
           </TabTrigger>
-          <TabTrigger name="leaderboard" href="/leaderboard" asChild>
+          <TabTrigger name="leaderboard" href="/(tabs)/leaderboard" asChild>
             <TabButton>Leaderboard</TabButton>
           </TabTrigger>
-          <TabTrigger name="profile" href="/profile" asChild>
+          <TabTrigger name="profile" href="/(tabs)/profile" asChild>
             <TabButton>Profile & AI</TabButton>
           </TabTrigger>
         </CustomTabList>
@@ -63,8 +62,8 @@ export function CustomTabList(props: TabListProps) {
   const colors = Colors[scheme === 'unspecified' || !scheme ? 'dark' : scheme];
 
   return (
-    <View {...props} style={styles.tabListContainer}>
-      <View style={[styles.innerContainer, { backgroundColor: colors.backgroundElement, borderColor: colors.primary, borderWidth: 1 }]}>
+    <View {...props} style={styles.tabListContainer} pointerEvents="box-none">
+      <View style={[styles.innerContainer, { backgroundColor: colors.backgroundElement, borderColor: colors.primary, borderWidth: 1 }]} pointerEvents="auto">
         <ThemedText style={[styles.brandText, { color: colors.accent }]}>
           REASONIX
         </ThemedText>

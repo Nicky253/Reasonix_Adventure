@@ -8,9 +8,9 @@ import {
   TouchableOpacity 
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useUser } from './_layout';
-import { Colors, Spacing, MaxContentWidth } from '../constants/theme';
-import { database } from '../config/firebase';
+import { useUser } from '../_layout';
+import { Colors, Spacing, MaxContentWidth } from '../../constants/theme';
+import { database } from '../../config/firebase';
 
 interface LeaderboardEntry {
   uid: string;
@@ -38,20 +38,17 @@ export default function LeaderboardScreen() {
       
       // Post-filtering for tabs
       if (activeTab === 'weekly') {
-        // Mocking a slightly different subset for weekly
         const weeklyList = list.map((item, idx) => ({
           ...item,
           score: Math.round(item.score * (idx % 2 === 0 ? 0.8 : 0.65))
         })).sort((a, b) => b.score - a.score);
         setLeaders(weeklyList);
       } else if (activeTab === 'friends') {
-        // Friends includes current user and a couple of other CPU elements
         const friendsList = list.filter(item => 
           item.uid === profile?.uid || item.uid === 'cpu2' || item.uid === 'cpu4'
         );
         setLeaders(friendsList);
       } else {
-        // Global list
         setLeaders(list);
       }
     } catch (e) {
@@ -78,8 +75,8 @@ export default function LeaderboardScreen() {
 
   const getRankColor = (rank: number) => {
     if (rank === 1) return Colors.dark.accent;
-    if (rank === 2) return '#d7d7d7'; // silver
-    if (rank === 3) return '#ad6f32'; // bronze
+    if (rank === 2) return '#d7d7d7';
+    if (rank === 3) return '#ad6f32';
     return '#ffffff';
   };
 
@@ -244,7 +241,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: Spacing.three,
-    paddingBottom: 110, // Buffer for tabbar
+    paddingBottom: 110,
   },
   emptyContainer: {
     alignItems: 'center',

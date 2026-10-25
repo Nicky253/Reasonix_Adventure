@@ -6,16 +6,15 @@ import {
   TouchableOpacity, 
   ScrollView, 
   ActivityIndicator, 
-  Share,
-  Platform
+  Share
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useUser } from './_layout';
-import { Colors, Spacing, MaxContentWidth } from '../constants/theme';
-import { aiService } from '../services/aiService';
-import { REWARDS } from '../data/gameData';
+import { useUser } from '../_layout';
+import { Colors, Spacing, MaxContentWidth } from '../../constants/theme';
+import { aiService } from '../../services/aiService';
+import { REWARDS } from '../../data/gameData';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen() {
@@ -57,7 +56,7 @@ export default function HomeScreen() {
   };
 
   const handleLogout = async () => {
-    const { auth } = require('../config/firebase');
+    const { auth } = require('../../config/firebase');
     await auth.signOut();
   };
 
@@ -79,8 +78,8 @@ export default function HomeScreen() {
     );
   }
 
-  // Calculate percentage progress to next level (200 XP per level tier up to 3000 XP max)
-  const nextLevelXp = profile.level * 500; // Tiered level-up targets
+  // Calculate percentage progress to next level
+  const nextLevelXp = profile.level * 500;
   const prevLevelXp = (profile.level - 1) * 500;
   const levelProgress = Math.min(
     1,
@@ -242,7 +241,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: Spacing.three,
-    paddingBottom: 110, // Buffer for tabbar
+    paddingBottom: 110,
   },
   loadingContainer: {
     flex: 1,

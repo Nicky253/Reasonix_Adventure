@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { DarkTheme, ThemeProvider } from 'expo-router';
+import { Stack } from 'expo-router';
 import { View, ActivityIndicator, useColorScheme, StyleSheet, StatusBar } from 'react-native';
 import { auth, database, UserProfile } from '../config/firebase';
-import AppTabs from '../components/app-tabs';
 import AuthScreen from './auth';
 import { Colors } from '../constants/theme';
 
@@ -101,7 +101,7 @@ export default function RootLayout() {
       newAnalytics.categoryStats[category].correct += 1;
     }
 
-    // Update response times (keep last 10)
+    // Update response times
     const times = [...(newAnalytics.recentResponseTimes || [])];
     times.push(responseTime);
     if (times.length > 10) times.shift();
@@ -111,14 +111,6 @@ export default function RootLayout() {
     const newXp = profile.xp + xpGained;
     const newCoins = profile.coins + coinsGained;
     
-    // Level boundary titles logic
-    // 1: Beginner Thinker (0 - 199)
-    // 2: Logic Explorer (200 - 499)
-    // 3: Puzzle Solver (500 - 899)
-    // 4: Strategy Master (900 - 1399)
-    // 5: Mind Warrior (1400 - 1999)
-    // 6: Reasonix Champion (2000 - 2999)
-    // 7: Grand Genius (3000+)
     let newLevel = 1;
     let newTitle = 'Beginner Thinker';
 
@@ -190,7 +182,11 @@ export default function RootLayout() {
       <StatusBar barStyle="light-content" backgroundColor="#0f051d" />
       <UserContext.Provider value={{ user, profile, loading, refreshProfile, updateProfileStats, setProfileData }}>
         {user ? (
-          <AppTabs />
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="levels" options={{ headerShown: false }} />
+            <Stack.Screen name="gameplay" options={{ headerShown: false }} />
+          </Stack>
         ) : (
           <AuthScreen />
         )}

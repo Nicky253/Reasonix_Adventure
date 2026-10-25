@@ -6,13 +6,12 @@ import {
   ScrollView, 
   ActivityIndicator, 
   TouchableOpacity, 
-  TextInput,
-  Platform
+  TextInput
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useUser } from './_layout';
-import { Colors, Spacing, MaxContentWidth } from '../constants/theme';
-import { aiService, CognitiveProfile } from '../services/aiService';
+import { useUser } from '../_layout';
+import { Colors, Spacing, MaxContentWidth } from '../../constants/theme';
+import { aiService, CognitiveProfile } from '../../services/aiService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ProfileScreen() {
@@ -153,12 +152,12 @@ export default function ProfileScreen() {
               </View>
             </View>
 
-            {/* Simulated Performance Charts */}
+            {/* Performance Charts */}
             <Text style={styles.chartTitle}>Category Diagnostic Matrix</Text>
             <View style={styles.chartContainer}>
               {categoriesList.map(cat => {
                 const stat = profile.analytics.categoryStats[cat.name];
-                const score = stat && stat.total > 0 ? Math.round((stat.correct / stat.total) * 100) : 50; // default 50% for display
+                const score = stat && stat.total > 0 ? Math.round((stat.correct / stat.total) * 100) : 50;
                 const played = stat ? stat.total > 0 : false;
 
                 return (
@@ -305,7 +304,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: Spacing.three,
-    paddingBottom: 110, // Buffer for tabbar
+    paddingBottom: 110,
   },
   identityCard: {
     backgroundColor: Colors.dark.backgroundElement,
